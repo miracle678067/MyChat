@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.dao.interfaceDao.MessageDao">
+    <resultMap id="MessageResult" type="com.test.bean.Message">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="COMMAND" jdbcType="VARCHAR" property="command"/>
+        <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <result column="CONTENT" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+   <!-- <select id="queryAllMessageList" parameterType="com.test.bean.Message" resultMap="MessageResult">
+        select id,command,description,content from message
+        <where>
+            <if test="command != null and !&quot;&quot;.equals(command.trim())">
+                and COMMAND=#{command}
+            </if>
+            <if test="description != null and !&quot;&quot;.equals(description.trim())">
+                and DESCRIPTION like '%' #{description} '%'
+            </if>
+        </where>
+    </select>-->
+    <sql id="columns">id,command,description,content</sql>
+    <select id="queryAllMessageList" parameterType="java.util.Map" resultMap="MessageResult">
+        select <include refid="columns"/> from message
+        <where>
+            <!--<if test="map.message.command != null and !&quot;&quot;.equals(map.message.command.trim())">
+                and COMMAND=#{map.message.command}
+            </if>
+            <if test="map.message.description != null and !&quot;&quot;.equals(map.message.description.trim())">
+                and DESCRIPTION like '%' #{map.message.description} '%'
+            </if>-->
+            <if test="_parameter.containsKey('message')">
+                <if test="message.command != null and !&quot;&quot;.equals(message.command.trim())">
+                    and command=#{message.command}
+                </if>
+                <if test="message.description != null and !&quot;&quot;.equals(message.description.trim())">
+                    and description like '%' #{message.description} '%'
+                </if>
+            </if>
+        </where>
+        <if test="_parameter.containsKey('page')">
+            order by id limit #{page.dbIndex},#{page.dbNumber}
+        </if>
+    </select>
+
+    <!--通过代理查询-->
+    <select id="queryAllMessageListByPage" parameterType="java.util.Map" resultMap="MessageResult">
+        select <include refid="columns"/>from message
+        <where>
+            <if test="_parameter.containsKey('message')">
+                <if test="message.command != null and !&quot;&quot;.equals(message.command.trim())">
+                    and command=#{message.command}
+                </if>
+                <if test="message.description != null and !&quot;&quot;.equals(message.description.trim())">
+                    and description like '%' #{message.description} '%'
+                </if>
+            </if>
+        </where>
+        <if test="_parameter.containsKey('page')">
+            order by id
+        </if>
+    </select>
+    <select id="count" parameterType="com.test.bean.Message" resultType="int">
+        select count(*) from message
+        <where>
+            <if test="command != null and !&quot;&quot;.equals(command.trim())">
+                and COMMAND=#{command}
+            </if>
+            <if test="description != null and !&quot;&quot;.equals(description.trim())">
+                and DESCRIPTION like '%' #{description} '%'
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectOne" parameterType="java.lang.Integer" resultMap="MessageResult">
+        select id,command,description,content from message
+        <where>
+            id=#{_parameter}
+        </where>
+    </select>
+
+
+    <delete id="deleteOne" parameterType="java.lang.Integer">
+       delete from MESSAGE where ID = #{_parameter}
+    </delete>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete from message where id in(
+          <foreach collection="list" item="item" separator=",">
+              #{item}
+          </foreach>
+        )
+    </delete>
+
+    <insert id="insertList" parameterType="com.test.bean.Message">
+        insert into message (command,description,content)
+        values(#{command,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR})
+    </insert>
+
+
+    <update id="updateCommand" parameterType="com.test.bean.Message">
+        update message
+        <set>
+            <if test="command != null">
+                command=#{command,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description=#{description,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content=#{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+    </update>
+
+</mapper>
