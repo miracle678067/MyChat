@@ -6,12 +6,12 @@
 
 - 后端页面：
 
-  ![1](E:\web_workplace\MyChat\1.png)
+  ![Image text]（https://raw.githubusercontent.com/miracle678067/MyChat/master/1.png）
 
 
 - 前端页面
 
-  ![2](E:\web_workplace\MyChat\2.png)
+  ![Image text]（https://raw.githubusercontent.com/miracle678067/MyChat/master/2.png）
 
 ## 实现功能
 
