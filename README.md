@@ -1,17 +1,15 @@
-
-
 # 类似公众号的自动回复
 
 ## 运行结果：
 
 - 后端页面：
 
-  ![Image text]（https://raw.githubusercontent.com/miracle678067/MyChat/master/1.png）
+  ![Image discription]（https://raw.githubusercontent.com/miracle678067/MyChat/master/1.png）
 
 
 - 前端页面
 
-  ![Image text]（https://raw.githubusercontent.com/miracle678067/MyChat/master/2.png）
+  ![Image discription]（https://raw.githubusercontent.com/miracle678067/MyChat/master/2.png）
 
 ## 实现功能
 
@@ -25,7 +23,7 @@
 
 ## 遇到的问题
 
-![3](E:\web_workplace\MyChat\3.png)
+![Image discription（https://raw.githubusercontent.com/miracle678067/MyChat/master/3.png）
 
 **解决方法：** 没有加载jquery，在js使用前的部分加上就可以了
 
@@ -47,11 +45,9 @@
 
 ​		      （3）检查配置文件是否有进行mapping.xml文件的加载
 
-​			（4）若上述情况都检查，则rebuild一下即可，我就是这种情况，在工程目录下发现xml文件并没有因为代码修改了而更新，因为rebuild一下解决了问题。
+​			（4）若上述情况都检查，则rebuild一下即可，我就是这种情况，在工程目录下发现xml文件并没有因为代码修改了而更新，因此rebuild一下解决了问题。
 
-
-
-- ![4](E:\web_workplace\MyChat\4.png)
+- ![Image discription]（https://raw.githubusercontent.com/miracle678067/MyChat/master/4.png）
 
 **解决方法：**  在dao接口的方法参数前面加上@Param注解，@Param注解的作用是给参数命名,参数命名后就能根据名字得到参数值，如下：
 
